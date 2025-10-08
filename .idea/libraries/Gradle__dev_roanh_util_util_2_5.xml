@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: dev.roanh.util:util:2.5" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="dev.roanh.util" artifactId="util" version="2.5" baseVersion="2.5" />
+    <CLASSES>
+      <root url="jar://E:/gradle-9.1.0/caches/modules-2/files-2.1/dev.roanh.util/util/2.5/72c4b61382c3a8bc546e5ca008dd7de2539061a6/util-2.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
