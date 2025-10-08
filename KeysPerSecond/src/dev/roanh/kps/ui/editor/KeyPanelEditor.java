@@ -43,8 +43,8 @@ public class KeyPanelEditor extends DataPanelEditor{
 	public KeyPanelEditor(KeyPanelSettings config, boolean live){
 		super(config, live);
 		
-		labels.add(new JLabel("Visible: "));
-		JCheckBox visible = new JCheckBox("(invisible keys only track input)", config.isVisible());
+		labels.add(new JLabel("可见: "));
+		JCheckBox visible = new JCheckBox("(不可见按键仅跟踪输入)", config.isVisible());
 		fields.add(visible);
 		visible.addActionListener(e->{
 			config.setVisible(visible.isSelected());

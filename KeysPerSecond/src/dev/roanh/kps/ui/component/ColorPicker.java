@@ -76,7 +76,8 @@ public class ColorPicker extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e){
 		chooser.setColor(getBackground());
-		if(Dialog.showSaveDialog(chooser)){
+		int result = Dialog.showDialog(chooser, new String[]{"保存", "取消"});
+		if(result == 0){
 			setBackground(chooser.getColor());
 			write.accept(new ThemeColor(chooser.getColor().getRGB(), read.get().getAlpha()));
 		}

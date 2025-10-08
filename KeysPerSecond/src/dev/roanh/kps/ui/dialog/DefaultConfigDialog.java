@@ -56,11 +56,11 @@ public class DefaultConfigDialog extends JPanel{
 	private DefaultConfigDialog(){
 		super(new BorderLayout(0, 5));
 		
-		add(new JLabel("You can configure a default configuration to be opened automatically on launch."), BorderLayout.PAGE_START);
-		add(new JLabel("Config: "), BorderLayout.LINE_START);
+		add(new JLabel("您可以配置一个默认配置，在程序启动时自动打开。"), BorderLayout.PAGE_START);
+		add(new JLabel("配置: "), BorderLayout.LINE_START);
 		add(selectedFile, BorderLayout.CENTER);
 		
-		JButton select = new JButton("Select");
+		JButton select = new JButton("选择");
 		add(select, BorderLayout.LINE_END);
 		select.addActionListener(e->{
 			Path file = Dialog.showFileOpenDialog(Configuration.KPS_NEW_EXT);
@@ -76,7 +76,7 @@ public class DefaultConfigDialog extends JPanel{
 	public static final void showDefaultConfigDialog(){
 		DefaultConfigDialog dialog = new DefaultConfigDialog();
 		try{
-			switch(Dialog.showDialog(dialog, new String[]{"Save", "Remove Default Config", "Cancel"})){
+			switch(Dialog.showDialog(dialog, new String[]{"保存", "移除默认配置", "取消"})){
 			case 0:
 				ConfigLoader.setDefaultConfig(Paths.get(dialog.selectedFile.getText()));
 				break;
@@ -89,7 +89,7 @@ public class DefaultConfigDialog extends JPanel{
 			}
 		}catch(BackingStoreException | InvalidPathException e){
 			e.printStackTrace();
-			Dialog.showErrorDialog("Failed to save default config, cause: " + e.getMessage());
+			Dialog.showDialog("保存默认配置失败，原因: " + e.getMessage(),new String[]{"确定"});
 		}
 	}
 }

@@ -44,9 +44,9 @@ public class DataPanelEditor extends Editor{
 	 * @param live If updates should be reflected in real time.
 	 */
 	public DataPanelEditor(DataPanelSettings config, boolean live){
-		super("Panel Specific Settings");
+		super("面板特定设置");
 
-		labels.add(new JLabel("Name: "));
+		labels.add(new JLabel("名称: "));
 		JTextField name = new JTextField(config.getName());
 		fields.add(name);
 		name.getDocument().addDocumentListener((FieldChangeListener)e->{
@@ -56,7 +56,7 @@ public class DataPanelEditor extends Editor{
 			}
 		});
 		
-		labels.add(new JLabel("Mode: "));
+		labels.add(new JLabel("模式: "));
 		JComboBox<RenderingMode> mode = new JComboBox<RenderingMode>(RenderingMode.values());
 		fields.add(mode);
 		mode.setSelectedItem(config.getRenderingMode());

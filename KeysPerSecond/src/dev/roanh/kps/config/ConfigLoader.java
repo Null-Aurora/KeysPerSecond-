@@ -44,11 +44,11 @@ public class ConfigLoader{
 	/**
 	 * Extension filter for all KeysPerSecond configuration files.
 	 */
-	private static final FileExtension KPS_ALL_EXT = FileSelector.registerFileExtension("KeysPerSecond config", "kps", "kpsconf", "kpsconf2", "kpsconf3");
+	private static final FileExtension KPS_ALL_EXT = FileSelector.registerFileExtension("KeysPerSecond 配置", "kps", "kpsconf", "kpsconf2", "kpsconf3");
 	/**
 	 * Extension filter for legacy KeysPerSecond configuration file formats.
 	 */
-	private static final FileExtension KPS_LEGACY_EXT = FileSelector.registerFileExtension("Legacy KeysPerSecond config", "kpsconf", "kpsconf2", "kpsconf3");
+	private static final FileExtension KPS_LEGACY_EXT = FileSelector.registerFileExtension("旧版 KeysPerSecond 配置", "kpsconf", "kpsconf2", "kpsconf3");
 	/**
 	 * Preferences store for persistent settings.
 	 */
@@ -63,11 +63,11 @@ public class ConfigLoader{
 		if(saveloc == null){
 			return null;
 		}else if(Objects.toString(saveloc.getFileName()).endsWith("kpsconf") || Objects.toString(saveloc.getFileName()).endsWith("kpsconf2")){
-			Dialog.showMessageDialog(
-				"You are trying to load a legacy configuration file.\n"
-				+ "This is no longer possible with this version of the program.\n"
-				+ "You should convert your configuration file first using version 8.4."
-			);
+			Dialog.showDialog(
+					"您正在尝试加载旧版配置文件。\n"
+							+ "此版本程序不再支持此操作。\n"
+							+ "您应该先使用版本 8.4 转换您的配置文件。",
+					new String[]{"确定"});
 			return null;
 		}
 		
@@ -75,15 +75,15 @@ public class ConfigLoader{
 			ConfigParser parser = ConfigParser.parse(saveloc);
 
 			if(parser.wasDefaultUsed()){
-				Dialog.showMessageDialog("Configuration loaded succesfully but some default values were used.");
+				Dialog.showDialog("配置加载成功，但使用了一些默认值。",new String[]{"确定"});
 			}else{
-				Dialog.showMessageDialog("Configuration loaded succesfully.");
+				Dialog.showDialog("配置加载成功。",new String[]{"确定"});
 			}
 			
 			return parser.getConfig();
 		}catch(IOException e){
 			e.printStackTrace();
-			Dialog.showErrorDialog("Failed to read the requested configuration, cause: " + e.getMessage());
+			Dialog.showDialog("读取请求的配置失败，原因:" + e.getMessage(),new String[]{"确定"});
 			return null;
 		}
 	}
@@ -97,10 +97,10 @@ public class ConfigLoader{
 				Main.applyConfig(ConfigParser.read(Main.config.getPath()), true);
 			}catch(IOException e){
 				e.printStackTrace();
-				Dialog.showErrorDialog("Failed to reload the configuration, cause: " + e.getMessage());
+				Dialog.showDialog("重新加载配置失败，原因: " + e.getMessage(),new String[]{"确定"});
 			}
 		}else{
-			Dialog.showMessageDialog("Cannot reload a configuration that was not loaded from a file.");
+			Dialog.showDialog("无法重新加载不是从文件加载的配置。",new String[]{"确定"});
 		}
 	}
 	
@@ -147,7 +147,7 @@ public class ConfigLoader{
 					return config;
 				}else{
 					//if the user explicitly requested a config via CLI we do not attempt to load the default config
-					Dialog.showErrorDialog("Failed to load the requested configuration file.");
+					Dialog.showDialog("加载请求的配置文件失败。",new String[]{"确定"});
 					return null;
 				}
 			}
@@ -162,7 +162,7 @@ public class ConfigLoader{
 			}
 		}catch(IOException e){
 			e.printStackTrace();
-			Dialog.showErrorDialog("Failed to load the requested configuration file.\nCause: " + e.getMessage());
+			Dialog.showDialog("加载请求的配置文件失败。\n原因: " + e.getMessage(),new String[]{"确定"});
 		}
 
 		//no usable configuration found

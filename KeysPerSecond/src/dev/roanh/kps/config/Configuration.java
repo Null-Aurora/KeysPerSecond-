@@ -60,7 +60,7 @@ public class Configuration{
 	/**
 	 * Extension filter for the current KeysPerSecond configuration file format.
 	 */
-	public static final FileExtension KPS_NEW_EXT = FileSelector.registerFileExtension("KeysPerSecond config", "kps");
+	public static final FileExtension KPS_NEW_EXT = FileSelector.registerFileExtension("KeysPerSecond 配置", "kps");
 	/**
 	 * The original configuration file path or null
 	 * if this configuration was not loaded from a file.
@@ -436,15 +436,15 @@ public class Configuration{
 	 *        the on screen position of the program.
 	 */
 	public final void saveConfig(boolean pos){
-		boolean savepos = (!pos) ? false : (Dialog.showConfirmDialog("Do you want to save the onscreen position of the program?"));
-		Path saveloc = Dialog.showFileSaveDialog(KPS_NEW_EXT, "config");
+		boolean savepos = (!pos) ? false : (Dialog.showConfirmDialog("是否保存程序的屏幕位置？"));
+		Path saveloc = Dialog.showFileSaveDialog(KPS_NEW_EXT, "配置");
 		if(saveloc != null){
 			try(PrintWriter out = new PrintWriter(Files.newBufferedWriter(saveloc))){
 				write(new IndentWriter(out), savepos);
-				Dialog.showMessageDialog("Configuration saved succesfully.");
+				Dialog.showDialog("配置保存成功。",new String[]{"确定"});
 			}catch(IOException e1){
 				e1.printStackTrace();
-				Dialog.showErrorDialog("Failed to save the configuration!");
+				Dialog.showDialog("配置保存失败!",new String[]{"确定"});
 			}
 		}
 	}

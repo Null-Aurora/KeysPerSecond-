@@ -76,27 +76,27 @@ public class Menu{
 	/**
 	 * The configuration menu.
 	 */
-	private static final JMenu configure = new JMenu("Configure");
+	private static final JMenu configure = new JMenu("配置");
 	/**
 	 * The general menu.
 	 */
-	private static final JMenu general = new JMenu("General");
+	private static final JMenu general = new JMenu("常规");
 	/**
 	 * Update rate menu.
 	 */
-	private static final JMenu rate = new JMenu("Update rate");
+	private static final JMenu rate = new JMenu("更新频率");
 	/**
 	 * Reset menu.
 	 */
-	private static final JMenu reset = new JMenu("Reset");
+	private static final JMenu reset = new JMenu("重置");
 	/**
 	 * Load/Save menu.
 	 */
-	private static final JMenu saveLoad = new JMenu("Save / Load");
+	private static final JMenu saveLoad = new JMenu("保存/加载");
 	/**
 	 * The pause menu item.
 	 */
-	protected static final JCheckBoxMenuItem pause = new JCheckBoxMenuItem("Pause");
+	protected static final JCheckBoxMenuItem pause = new JCheckBoxMenuItem("暂停");
 	/**
 	 * The icon for the system tray.
 	 */
@@ -127,31 +127,31 @@ public class Menu{
 		saveLoad.removeAll();
 		
 		List<JMenuItem> components = new ArrayList<JMenuItem>();
-		JMenuItem snap = new JMenuItem("Snap to edges");
-		JMenuItem exit = new JMenuItem("Exit");
-		JMenuItem sreset = new JMenuItem("Reset statistics");
-		JMenuItem sresetmax = new JMenuItem("Reset maximum");
-		JMenuItem sresetavg = new JMenuItem("Reset average");
-		JMenuItem sresettot = new JMenuItem("Reset total");
-		JMenuItem sresetgraph = new JMenuItem("Reset graphs");
-		JMenuItem treset = new JMenuItem("Reset key totals");
-		JMenuItem configkeys = new JMenuItem("Keys & buttons");
-		JMenuItem colorcustom = new JMenuItem("Configure colours");
-		JMenuItem statsSaving = new JMenuItem("Stats saving");
-		JMenuItem commandkeys = new JMenuItem("Commands");
-		JMenuItem layout = new JMenuItem("Layout panels & graphs");
-		JMenuItem about = new JMenuItem("About");
-		JMenuItem minimizeButton = new JMenuItem("Hide window");
-		JCheckBoxMenuItem tAllKeys = new JCheckBoxMenuItem("Track all keys");
-		JCheckBoxMenuItem tAllButtons = new JCheckBoxMenuItem("Track all buttons");
-		JCheckBoxMenuItem overlay = new JCheckBoxMenuItem("Overlay mode");
-		JCheckBoxMenuItem modifiers = new JCheckBoxMenuItem("Key-modifier tracking");
-		JCheckBoxMenuItem windowed = new JCheckBoxMenuItem("Windowed mode");
-		JMenuItem save = new JMenuItem("Save config");
-		JMenuItem load = new JMenuItem("Load config");
-		JMenuItem defConf = new JMenuItem("Default config");
-		JMenuItem saveStats = new JMenuItem("Save stats");
-		JMenuItem loadStats = new JMenuItem("Load stats");
+		JMenuItem snap = new JMenuItem("吸附到边缘");
+		JMenuItem exit = new JMenuItem("退出");
+		JMenuItem sreset = new JMenuItem("重置统计");
+		JMenuItem sresetmax = new JMenuItem("重置最大值");
+		JMenuItem sresetavg = new JMenuItem("重置平均值");
+		JMenuItem sresettot = new JMenuItem("重置总计");
+		JMenuItem sresetgraph = new JMenuItem("重置图表");
+		JMenuItem treset = new JMenuItem("重置按键总计");
+		JMenuItem configkeys = new JMenuItem("按键和按钮");
+		JMenuItem colorcustom = new JMenuItem("配置颜色");
+		JMenuItem statsSaving = new JMenuItem("统计保存");
+		JMenuItem commandkeys = new JMenuItem("命令");
+		JMenuItem layout = new JMenuItem("布局面板和图表");
+		JMenuItem about = new JMenuItem("关于");
+		JMenuItem minimizeButton = new JMenuItem("隐藏窗口");
+		JCheckBoxMenuItem tAllKeys = new JCheckBoxMenuItem("跟踪所有按键");
+		JCheckBoxMenuItem tAllButtons = new JCheckBoxMenuItem("跟踪所有按钮");
+		JCheckBoxMenuItem overlay = new JCheckBoxMenuItem("置顶模式");
+		JCheckBoxMenuItem modifiers = new JCheckBoxMenuItem("按键修饰符跟踪");
+		JCheckBoxMenuItem windowed = new JCheckBoxMenuItem("窗口模式");
+		JMenuItem save = new JMenuItem("保存配置");
+		JMenuItem load = new JMenuItem("加载配置");
+		JMenuItem defConf = new JMenuItem("默认配置");
+		JMenuItem saveStats = new JMenuItem("保存统计");
+		JMenuItem loadStats = new JMenuItem("加载统计");
 		components.add(saveStats);
 		components.add(loadStats);
 		components.add(load);
@@ -348,7 +348,7 @@ public class Menu{
 
 			if(trayIcon == null){
 				PopupMenu popupMenu = new PopupMenu();
-				MenuItem exit = new MenuItem("Exit");
+				MenuItem exit = new MenuItem("退出");
 				popupMenu.add(exit);
 
 				exit.addActionListener(e->{

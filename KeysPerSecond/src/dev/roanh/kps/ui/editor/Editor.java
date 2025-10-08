@@ -60,6 +60,6 @@ public abstract class Editor extends JPanel{
 	 * @param editor The editor to show.
 	 */
 	public static final void showEditor(Editor editor){
-		Dialog.showMessageDialog(editor);
+		Dialog.showDialog(editor,new String[]{"确定"});
 	}
 }

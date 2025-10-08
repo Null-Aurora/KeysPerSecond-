@@ -175,7 +175,7 @@ public class ConfigParser{
 		in.mark(MARK_LIMIT);
 		String line = in.readLine();
 		if(line == null){
-			throw new IOException("Empty config file");
+			throw new IOException("配置文件为空");
 		}
 		
 		if(line.startsWith("version:")){

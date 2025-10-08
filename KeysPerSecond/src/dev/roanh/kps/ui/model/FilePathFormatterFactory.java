@@ -29,11 +29,11 @@ import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 /**
  * Formatter factory that creates a formatter that rejects
  * content containing characters that are illegal in file paths.
- * 
+ *
  * @author Roan
  */
 public class FilePathFormatterFactory extends AbstractFormatterFactory{
-	
+
 	@Override
 	public AbstractFormatter getFormatter(JFormattedTextField tf){
 		return new AbstractFormatter(){
@@ -47,7 +47,7 @@ public class FilePathFormatterFactory extends AbstractFormatterFactory{
 				if(isValidPath(text)){
 					return text;
 				}else{
-					throw new ParseException("Invalid character found", 0);
+					throw new ParseException("发现无效字符", 0);
 				}
 			}
 
@@ -57,7 +57,7 @@ public class FilePathFormatterFactory extends AbstractFormatterFactory{
 			}
 		};
 	}
-	
+
 	/**
 	 * Tests if there are any invalid characters in the given file path.
 	 * @param path The file path to check.

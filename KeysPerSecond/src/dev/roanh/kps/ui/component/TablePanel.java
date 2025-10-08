@@ -93,12 +93,12 @@ public class TablePanel extends JPanel{
 		if(location){
 			row.add(new JLabel("X", SwingConstants.CENTER));
 			row.add(new JLabel("Y", SwingConstants.CENTER));
-			row.add(new JLabel("Width", SwingConstants.CENTER));
-			row.add(new JLabel("Height", SwingConstants.CENTER));
+			row.add(new JLabel("宽度", SwingConstants.CENTER));
+			row.add(new JLabel("高度", SwingConstants.CENTER));
 		}
 		
-		row.add(new JLabel("Settings", SwingConstants.CENTER));
-		row.add(new JLabel("Delete", SwingConstants.CENTER));
+		row.add(new JLabel("设置", SwingConstants.CENTER));
+		row.add(new JLabel("删除", SwingConstants.CENTER));
 		rows.add(row);
 	}
 	
@@ -158,7 +158,7 @@ public class TablePanel extends JPanel{
 		}
 
 		//edit
-		JButton edit = new JButton("Edit");
+		JButton edit = new JButton("编辑");
 		row.add(edit);
 		edit.addActionListener(e->{
 			info.showEditor(live);
@@ -166,7 +166,7 @@ public class TablePanel extends JPanel{
 		});
 		
 		//delete
-		JButton delete = new JButton("Remove");
+		JButton delete = new JButton("移除");
 		row.add(delete);
 		delete.addActionListener(e->{
 			panels.remove(info);

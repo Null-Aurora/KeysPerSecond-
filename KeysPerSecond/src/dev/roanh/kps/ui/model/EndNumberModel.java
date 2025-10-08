@@ -40,6 +40,6 @@ public class EndNumberModel extends SpecialNumberModel{
 	 * @param listener The listener to inform of value changes
 	 */
 	public EndNumberModel(int value, FieldListener validator, ValueChangeListener listener){
-		super(value, "end", validator, listener);
+		super(value, "结束", validator, listener);
 	}
 }

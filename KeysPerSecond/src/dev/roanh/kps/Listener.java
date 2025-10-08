@@ -47,7 +47,7 @@ public class Listener implements MouseMotionListener, MouseListener, ActionListe
 	/**
 	 * Optional right click menu item to edit the clicked panel.
 	 */
-	private JMenuItem editSelected = new JMenuItem("Edit panel");
+	private JMenuItem editSelected = new JMenuItem("编辑面板");
 	/**
 	 * The editor for the panel last right clicked, if any.
 	 */

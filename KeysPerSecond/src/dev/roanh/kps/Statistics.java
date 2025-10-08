@@ -52,7 +52,7 @@ public class Statistics{
 	/**
 	 * Extension filter for KeysPerSecond statistics files.
 	 */
-	public static final FileExtension KPS_STATS_EXT = FileSelector.registerFileExtension("KeysPerSecond statistics", "kpsstats");
+	public static final FileExtension KPS_STATS_EXT = FileSelector.registerFileExtension("KeysPerSecond 统计信息", "kpsstats");
 	/**
 	 * Regex used to parse key lines in the statistics save file.
 	 */
@@ -76,7 +76,7 @@ public class Statistics{
 				saveStats(Paths.get(Main.config.getStatsSavingSettings().getSaveFile()));
 			}catch(IOException e){
 				e.printStackTrace();
-				if(Dialog.showConfirmDialog("Failed to save statistics on exit.\nCause: " + e.getMessage() + "\nAttempt to save again?")){
+				if(Dialog.showConfirmDialog("退出时保存统计信息失败。\n原因: " + e.getMessage() + "\n是否尝试重新保存？")){
 					saveStatsOnExit();
 				}
 			}
@@ -119,14 +119,14 @@ public class Statistics{
 	 * to save to
 	 */
 	protected static void saveStats(){
-		Path file = Dialog.showFileSaveDialog(KPS_STATS_EXT, "stats");
+		Path file = Dialog.showFileSaveDialog(KPS_STATS_EXT, "统计");
 		if(file != null){
 			try{
 				saveStats(file);
-				Dialog.showMessageDialog("Statistics succesfully saved");
+				Dialog.showDialog("统计信息保存成功",new String[]{"确定"});
 			}catch(IOException e){
 				e.printStackTrace();
-				Dialog.showErrorDialog("Failed to save the statistics!\nCause: " + e.getMessage());
+				Dialog.showDialog("保存统计信息失败!\n原因: " + e.getMessage(),new String[]{"确定"});
 			}
 		}
 	}
@@ -191,10 +191,10 @@ public class Statistics{
 		
 		try{
 			loadStats(file);
-			Dialog.showMessageDialog("Statistics succesfully loaded");
+			Dialog.showDialog("统计信息加载成功",new String[]{"确定"});
 		}catch(IOException | UnsupportedOperationException | IllegalArgumentException e){
 			e.printStackTrace();
-			Dialog.showErrorDialog("Failed to load the statistics!\nCause: " + e.getMessage());
+			Dialog.showDialog("加载统计信息失败!\n原因: " + e.getMessage(),new String[]{"确定"});
 		}
 	}
 
@@ -266,12 +266,12 @@ public class Statistics{
 					}
 					break;
 				default:
-					throw new IllegalArgumentException("Cannot parse line: " + line);
+					throw new IllegalArgumentException("无法解析行: " + line);
 				}
 			}
 			in.close();
 		}catch(MalformedInputException e){
-			throw new UnsupportedOperationException("Loading legacy statistics files is unsupported in this version.", e);
+			throw new UnsupportedOperationException("此版本不支持加载旧版统计文件。", e);
 		}
 
 		Main.frame.repaint();

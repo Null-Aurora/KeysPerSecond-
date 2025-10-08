@@ -18,8 +18,7 @@
  */
 package dev.roanh.kps.ui.dialog;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
@@ -74,19 +73,35 @@ public class MainDialog extends JPanel{
 	 * @return The constructed bottom GUI panel.
 	 */
 	private JPanel buildBottomPanel(){
-		JLabel forum = new JLabel("<html><font color=blue><u>Forums</u></font> -</html>", SwingConstants.RIGHT);
+		JLabel forum = new JLabel("<html><font color=blue><u>论坛</u></font> -</html>", SwingConstants.RIGHT);
 		forum.addMouseListener(new ClickableLink("https://osu.ppy.sh/community/forums/topics/552405"));
-		
+
 		JLabel git = new JLabel("<html>- <font color=blue><u>GitHub</u></font></html>", SwingConstants.LEFT);
 		git.addMouseListener(new ClickableLink("https://github.com/RoanH/KeysPerSecond"));
-		
+
 		JPanel links = new JPanel(new GridLayout(1, 2, -2, 0));
 		links.add(forum);
 		links.add(git);
-		
-		JPanel info = new JPanel(new GridLayout(2, 1, 0, 2));
-		info.add(Util.getVersionLabel("KeysPerSecond", Main.VERSION.toString()));
+
+		JPanel translatorPanel = new JPanel(new GridLayout(1, 1));
+		JLabel translatorLabel = new JLabel("<html><center>汉化: <font color=blue><u>null极光</u></font> (B站)</center></html>", SwingConstants.CENTER);
+		translatorLabel.addMouseListener(new ClickableLink("https://space.bilibili.com/317115491"));
+		translatorPanel.add(translatorLabel);
+
+
+//		info.add(Util.getVersionLabel("KeysPerSecond", Main.VERSION.toString()));
+		JPanel info = new JPanel(new GridLayout(3, 1, 0, 2));
+		JLabel versionLabel = new JLabel();
+		versionLabel.setHorizontalAlignment(JLabel.CENTER);
+		info.add(versionLabel);
 		info.add(links);
+		info.add(translatorPanel);
+		Util.checkVersion("RoanH", "KeysPerSecond", result -> {
+			String latestVersion = result.orElse("未知");
+			String text = "<html><center><i>版本: " + Main.VERSION.toString() + ", 最新版本: " + latestVersion + "</i></center></html>";
+			versionLabel.setText(text);
+		});
+		versionLabel.setText("<html><center><i>版本: " + Main.VERSION.toString() + ", 最新版本: <font color='gray'>检查中</font></i></center></html>");
 		return info;
 	}
 	
@@ -97,18 +112,18 @@ public class MainDialog extends JPanel{
 	 */
 	private JPanel buildLeftPanel(){
 		//info
-		JLabel info = new JLabel("<html><body style='width:210px'>You can either configure the program on this screen or use the right <b>right click</b> menu after the program is already visible to see changes take effect in real time.</body></html>");
-		info.setBorder(BorderFactory.createTitledBorder("Information"));
+		JLabel info = new JLabel("<html><body style='width:210px'>您可以在本屏幕上配置程序，或在程序可见后使用<b>右键单击</b>菜单实时查看更改效果。</body></html>");
+		info.setBorder(BorderFactory.createTitledBorder("信息"));
 		
 		//main configuration
 		JPanel main = new JPanel(new GridLayout(2, 1));
-		main.setBorder(BorderFactory.createTitledBorder("Main Configuration"));
+		main.setBorder(BorderFactory.createTitledBorder("主要配置"));
 
-		JButton keys = new JButton("Configure keys & buttons");
+		JButton keys = new JButton("配置按键和鼠标按钮");
 		main.add(keys);
 		keys.addActionListener(e->KeysDialog.configureKeys(config, false));
 		
-		JButton layout = new JButton("Configure layout, graphs & panels");
+		JButton layout = new JButton("配置布局、图表和面板");
 		main.add(layout);
 		layout.addActionListener(e->LayoutDialog.configureLayout(config, false));
 
@@ -127,9 +142,9 @@ public class MainDialog extends JPanel{
 	private JPanel buildRightPanel(){
 		//configuration
 		JPanel configuration = new JPanel(new GridLayout(3, 1));
-		configuration.setBorder(BorderFactory.createTitledBorder("Configuration"));
+		configuration.setBorder(BorderFactory.createTitledBorder("配置"));
 		
-		JButton load = new JButton("Load config");
+		JButton load = new JButton("加载配置");
 		configuration.add(load);
 		load.addActionListener(e->{
 			Configuration toLoad = ConfigLoader.loadConfiguration();
@@ -139,38 +154,38 @@ public class MainDialog extends JPanel{
 			}
 		});
 		
-		JButton save = new JButton("Save config");
+		JButton save = new JButton("保存配置");
 		configuration.add(save);
 		save.addActionListener(e->config.saveConfig(false));
 		
-		JButton defConf = new JButton("Default config");
+		JButton defConf = new JButton("默认配置");
 		configuration.add(defConf);
 		defConf.addActionListener(e->DefaultConfigDialog.showDefaultConfigDialog());
 		
 		//settings
 		JPanel settings = new JPanel(new GridLayout(4, 1));
-		settings.setBorder(BorderFactory.createTitledBorder("Settings"));
+		settings.setBorder(BorderFactory.createTitledBorder("设置"));
 		
-		JButton updaterate = new JButton("Update rate");
+		JButton updaterate = new JButton("更新频率");
 		settings.add(updaterate);
 		updaterate.addActionListener(e->UpdateRateDialog.configureUpdateRate(config));
 		
-		JButton color = new JButton("Colours");
+		JButton color = new JButton("颜色");
 		settings.add(color);
 		color.addActionListener(e->ColorDialog.configureColors(config.getTheme(), false));
 		
-		JButton autoSave = new JButton("Stats saving");
+		JButton autoSave = new JButton("统计保存");
 		settings.add(autoSave);
 		autoSave.addActionListener(e->StatsSavingDialog.configureStatsSaving(config.getStatsSavingSettings(), false));
 		
-		JButton cmdkeys = new JButton("Commands");
+		JButton cmdkeys = new JButton("命令");
 		settings.add(cmdkeys);
 		cmdkeys.addActionListener(e->CommandKeysDialog.configureCommandKeys(config.getCommands()));
 		
 		//about
 		JPanel aboutPanel = new JPanel(new BorderLayout());
-		aboutPanel.setBorder(BorderFactory.createTitledBorder("Help"));
-		JButton about = new JButton("About");
+		aboutPanel.setBorder(BorderFactory.createTitledBorder("帮助"));
+		JButton about = new JButton("关于");
 		aboutPanel.add(about);
 		about.addActionListener(e->AboutDialog.showAbout());
 		
@@ -217,14 +232,14 @@ public class MainDialog extends JPanel{
 		 */
 		private CheckBoxPanel(){
 			super(new BorderLayout());
-			setBorder(BorderFactory.createTitledBorder("Options"));
+			setBorder(BorderFactory.createTitledBorder("选项"));
 			
 			JPanel labels = new JPanel(new GridLayout(5, 1));
-			labels.add(new JLabel("Overlay mode: "));
-			labels.add(new JLabel("Track all keys: "));
-			labels.add(new JLabel("Track all buttons: "));
-			labels.add(new JLabel("Key-modifier tracking: "));
-			labels.add(new JLabel("Windowed mode:"));
+			labels.add(new JLabel("置顶模式: "));
+			labels.add(new JLabel("跟踪所有按键: "));
+			labels.add(new JLabel("跟踪所有鼠标按钮: "));
+			labels.add(new JLabel("跟踪按键修饰符: "));
+			labels.add(new JLabel("窗口模式:"));
 			add(labels, BorderLayout.CENTER);
 			
 			JPanel boxes = new JPanel(new GridLayout(5, 1));
@@ -263,17 +278,17 @@ public class MainDialog extends JPanel{
 		MainDialog content = new MainDialog();
 		JPanel bottomButtons = new JPanel();
 
-		JButton ok = new JButton("OK");
+		JButton ok = new JButton("确定");
 		bottomButtons.add(ok);
 		ok.addActionListener(e->{
 			if(content.config.isValid()){
 				latch.countDown();
 			}else{
-				Dialog.showMessageDialog("Please make sure your layout has at least one panel to display.");
+				Dialog.showDialog("请确保您的布局至少有一个面板可以显示。",new String[]{"确定"});
 			}
 		});
 		
-		JButton exit = new JButton("Exit");
+		JButton exit = new JButton("退出");
 		bottomButtons.add(exit);
 		exit.addActionListener(e->System.exit(0));
 		

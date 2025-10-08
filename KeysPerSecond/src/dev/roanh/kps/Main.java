@@ -216,7 +216,7 @@ public class Main{
 		}catch(NativeHookException ex){
 			System.err.println("There was a problem registering the native hook.");
 			ex.printStackTrace();
-			Dialog.showErrorDialog("There was a problem registering the native hook: " + ex.getMessage());
+			Dialog.showDialog("注册全局输入监听器时出现问题: " + ex.getMessage(),new String[]{"确定"});
 			System.exit(1);
 		}
 		
@@ -274,7 +274,7 @@ public class Main{
 				Statistics.loadStats(Paths.get(config.getStatsSavingSettings().getSaveFile()));
 			}catch(IOException | UnsupportedOperationException | IllegalArgumentException e){
 				e.printStackTrace();
-				Dialog.showMessageDialog("Failed to load statistics on launch.\nCause: " + e.getMessage());
+				Dialog.showDialog("启动时加载统计信息失败。\n原因: " + e.getMessage(),new String[]{"确定"});
 			}
 		}
 		

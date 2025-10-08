@@ -64,11 +64,11 @@ public class LayoutDialog{
 		//general layout settings
 		LayoutSettings layout = config.getLayout();
 		JPanel gridSize = new JPanel(new GridLayout(2, 2, 0, 5));
-		gridSize.setBorder(BorderFactory.createTitledBorder("Size"));
-		gridSize.add(new JLabel("Cell size: "));
+		gridSize.setBorder(BorderFactory.createTitledBorder("尺寸"));
+		gridSize.add(new JLabel("单元格大小: "));
 		JSpinner gridSpinner = new JSpinner(new SpinnerNumberModel(layout.getCellSize(), BasePanel.imageSize, Integer.MAX_VALUE, 1));
 		gridSize.add(gridSpinner);
-		gridSize.add(new JLabel("Panel border offset: "));
+		gridSize.add(new JLabel("面板边框偏移: "));
 		JSpinner gapSpinner = new JSpinner(new SpinnerNumberModel(layout.getBorderOffset(), 0, new DynamicInteger(()->(layout.getCellSize() - BasePanel.imageSize)), 1));
 		gapSpinner.addChangeListener((e)->{
 			layout.setBorderOffset((int)gapSpinner.getValue());
@@ -88,7 +88,7 @@ public class LayoutDialog{
 		form.add(gridSize, BorderLayout.PAGE_START);
 		
 		//panel configuration
-		TablePanel panelView = new TablePanel("Panel", true, live);
+		TablePanel panelView = new TablePanel("面板", true, live);
 		panelView.addPanels(config.getKeys());
 		panelView.addPanels(config.getPanels());
 		
@@ -98,20 +98,20 @@ public class LayoutDialog{
 		pane.setPreferredSize(new Dimension(600, 200));
 		
 		JPanel buttons = new JPanel(new GridLayout(1, 0, 2, 0));
-		buttons.add(createAddButton(panelView, "Add Maximum", config.getPanels(), PanelType.MAX::newSettings));
-		buttons.add(createAddButton(panelView, "Add Average", config.getPanels(), PanelType.AVG::newSettings));
-		buttons.add(createAddButton(panelView, "Add KPS", config.getPanels(), PanelType.CURRENT::newSettings));
-		buttons.add(createAddButton(panelView, "Add Total", config.getPanels(), PanelType.TOTAL::newSettings));
-		buttons.add(createAddButton(panelView, "Add Last", config.getPanels(), PanelType.LAST::newSettings));
+		buttons.add(createAddButton(panelView, "添加最大值面板", config.getPanels(), PanelType.MAX::newSettings));
+		buttons.add(createAddButton(panelView, "添加平均值面板", config.getPanels(), PanelType.AVG::newSettings));
+		buttons.add(createAddButton(panelView, "添加KPS面板", config.getPanels(), PanelType.CURRENT::newSettings));
+		buttons.add(createAddButton(panelView, "添加总计面板", config.getPanels(), PanelType.TOTAL::newSettings));
+		buttons.add(createAddButton(panelView, "添加最后输入面板", config.getPanels(), PanelType.LAST::newSettings));
 		
 		JPanel panel = new JPanel(new BorderLayout());
-		panel.setBorder(BorderFactory.createTitledBorder("Panels"));
+		panel.setBorder(BorderFactory.createTitledBorder("面板"));
 		panel.add(pane, BorderLayout.CENTER);
 		panel.add(buttons, BorderLayout.PAGE_END);
 		form.add(panel, BorderLayout.CENTER);
 
 		//graph configuration
-		TablePanel graphView = new TablePanel("Graph", true, live);
+		TablePanel graphView = new TablePanel("图表", true, live);
 		graphView.addPanels(config.getGraphs());
 		
 		JScrollPane graphPane = new JScrollPane(graphView);
@@ -120,16 +120,16 @@ public class LayoutDialog{
 		graphPane.setPreferredSize(new Dimension(600, 100));
 		
 		JPanel graphButtons = new JPanel(new GridLayout(1, 0, 2, 0));
-		graphButtons.add(createAddButton(graphView, "Add Line Graph", config.getGraphs(), GraphType.LINE::newSettings));
-		graphButtons.add(createAddButton(graphView, "Add Cursor Graph", config.getGraphs(), GraphType.CURSOR::newSettings));
+		graphButtons.add(createAddButton(graphView, "添加折线图", config.getGraphs(), GraphType.LINE::newSettings));
+		graphButtons.add(createAddButton(graphView, "添加光标图", config.getGraphs(), GraphType.CURSOR::newSettings));
 		
 		JPanel graphPanel = new JPanel(new BorderLayout());
-		graphPanel.setBorder(BorderFactory.createTitledBorder("Graphs"));
+		graphPanel.setBorder(BorderFactory.createTitledBorder("图表"));
 		graphPanel.add(graphPane, BorderLayout.CENTER);
 		graphPanel.add(graphButtons, BorderLayout.PAGE_END);
 		form.add(graphPanel, BorderLayout.PAGE_END);
 		
-		Dialog.showMessageDialog(form, true, ModalityType.APPLICATION_MODAL);
+		Dialog.showDialog(form, true, ModalityType.APPLICATION_MODAL,new String[]{"确定"});
 		Main.content.hideGrid();
 	}
 	

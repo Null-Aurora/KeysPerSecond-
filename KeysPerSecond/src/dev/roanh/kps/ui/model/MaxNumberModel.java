@@ -40,6 +40,6 @@ public class MaxNumberModel extends SpecialNumberModel{
 	 * @param listener The listener to inform of value changes
 	 */
 	public MaxNumberModel(int value, FieldListener validator, ValueChangeListener listener){
-		super(value, "max", validator, listener);
+		super(value, "最大值", validator, listener);
 	}
 }

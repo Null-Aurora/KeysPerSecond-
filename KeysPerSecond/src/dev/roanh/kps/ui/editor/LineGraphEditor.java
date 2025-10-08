@@ -43,14 +43,14 @@ public class LineGraphEditor extends Editor{
 	 * @param live If updates should be reflected in real time.
 	 */
 	public LineGraphEditor(LineGraphSettings config, boolean live){
-		super("Graph Settings");
+		super("图形设置");
 
-		labels.add(new JLabel("Backlog (milliseconds): "));
+		labels.add(new JLabel("回溯时间 (毫秒): "));
 		JSpinner backlog = new JSpinner(new SpinnerNumberModel(config.getBacklog(), 2, Integer.MAX_VALUE, 100));
 		backlog.addChangeListener(e->config.setBacklog((int)backlog.getValue()));
 		fields.add(backlog);
 		
-		labels.add(new JLabel("Maximum (Y cap): "));
+		labels.add(new JLabel("最大值 (Y上限): "));
 		JSpinner max = new JSpinner(new SpinnerNumberModel(config.getMaxValue(), 1, Integer.MAX_VALUE, 1));
 		fields.add(max);
 		max.addChangeListener(e->{
@@ -58,7 +58,7 @@ public class LineGraphEditor extends Editor{
 			Main.resetGraphs();
 		});
 		
-		labels.add(new JLabel("Show average: "));
+		labels.add(new JLabel("显示平均值: "));
 		JCheckBox avg = new JCheckBox("", config.isAverageVisible());
 		fields.add(avg);
 		avg.addActionListener(e->{

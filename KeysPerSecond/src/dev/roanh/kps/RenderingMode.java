@@ -36,7 +36,7 @@ public enum RenderingMode{
 	 * HORIZONTAL text rendering
 	 * The text is followed by the value
 	 */
-	HORIZONTAL_TN("Text - value"){
+	HORIZONTAL_TN("文本 - 数值"){
 		@Override
 		protected void setTitleDrawPositionImpl(FontMetrics metrics, Graphics2D g, Font font, BasePanel panel, String title){
 			point.move(
@@ -77,7 +77,7 @@ public enum RenderingMode{
 	 * HORIZONTAL text rendering
 	 * The value is followed by the text
 	 */
-	HORIZONTAL_NT("Value - text"){
+	HORIZONTAL_NT("数值 - 文本"){
 		@Override
 		protected void setTitleDrawPositionImpl(FontMetrics metrics, Graphics2D g, Font font, BasePanel panel, String title){
 			point.move(
@@ -118,7 +118,7 @@ public enum RenderingMode{
 	 * DIAGONAL text rendering
 	 * The text is diagonally right above the value
 	 */
-	DIAGONAL1("Text diagonally right above value"){
+	DIAGONAL1("文本在数值右上方"){
 		@Override
 		protected void setTitleDrawPositionImpl(FontMetrics metrics, Graphics2D g, Font font, BasePanel panel, String title){
 			point.move(
@@ -159,7 +159,7 @@ public enum RenderingMode{
 	 * DIAGONAL text rendering
 	 * The text is diagonally left under the value
 	 */
-	DIAGONAL2("Text diagonally left under value"){
+	DIAGONAL2("文本在数值左下方"){
 		@Override
 		protected void setTitleDrawPositionImpl(FontMetrics metrics, Graphics2D g, Font font, BasePanel panel, String title){
 			point.move(
@@ -200,7 +200,7 @@ public enum RenderingMode{
 	 * DIAGONAL text rendering
 	 * The text is diagonally left above the value
 	 */
-	DIAGONAL3("Text diagonally left above value"){
+	DIAGONAL3("文本在数值左上方"){
 		@Override
 		protected void setTitleDrawPositionImpl(FontMetrics metrics, Graphics2D g, Font font, BasePanel panel, String title){
 			point.move(
@@ -241,7 +241,7 @@ public enum RenderingMode{
 	 * DIAGONAL text rendering
 	 * The text is diagonally right under the value
 	 */
-	DIAGONAL4("Text diagonally right under value"){
+	DIAGONAL4("文本在数值右下方"){
 		@Override
 		protected void setTitleDrawPositionImpl(FontMetrics metrics, Graphics2D g, Font font, BasePanel panel, String title){
 			point.move(
@@ -282,7 +282,7 @@ public enum RenderingMode{
 	 * VERTICAL text rendering
 	 * The text is above the value
 	 */
-	VERTICAL("Text above value"){
+	VERTICAL("文本在数值上方"){
 		@Override
 		protected void setTitleDrawPositionImpl(FontMetrics metrics, Graphics2D g, Font font, BasePanel panel, String title){
 			point.move(
@@ -323,7 +323,7 @@ public enum RenderingMode{
 	 * Rendering mode where only the panel title
 	 * is displayed in the center.
 	 */
-	TEXT_ONLY("Text only", true, false){
+	TEXT_ONLY("仅文本", true, false){
 
 		@Override
 		protected void setTitleDrawPositionImpl(FontMetrics metrics, Graphics2D g, Font font, BasePanel panel, String title){
@@ -361,7 +361,7 @@ public enum RenderingMode{
 	 * Rendering mode where only the panel value
 	 * is displayed in the center.
 	 */
-	VALUE_ONLY("Value only", false, true){
+	VALUE_ONLY("仅数值", false, true){
 
 		@Override
 		protected void setTitleDrawPositionImpl(FontMetrics metrics, Graphics2D g, Font font, BasePanel panel, String title){

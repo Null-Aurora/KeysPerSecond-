@@ -55,14 +55,13 @@ public class UpdateRateDialog extends JPanel{
 		super(new BorderLayout(0, 5));
 		
 		JPanel info = new JPanel(new GridLayout(2, 1, 0, 0));
-		info.add(new JLabel("Here you can change the rate at which"));
-		info.add(new JLabel("most panels are updated."));
+		info.add(new JLabel("在这里您可以更改大多数面板的更新频率。"));
 		
 		update.setSelectedItem(config.getUpdateRate());
 		update.setRenderer(new RateCellRenderer());
 		
 		add(info, BorderLayout.PAGE_START);
-		add(new JLabel("Update rate: "), BorderLayout.WEST);
+		add(new JLabel("更新频率: "), BorderLayout.WEST);
 		add(update, BorderLayout.CENTER);
 	}
 
@@ -72,7 +71,11 @@ public class UpdateRateDialog extends JPanel{
 	 */
 	public static final void configureUpdateRate(Configuration config){
 		UpdateRateDialog pconfig = new UpdateRateDialog(config);
-		if(Dialog.showSaveDialog(pconfig)){
+//		if(Dialog.showSaveDialog(pconfig)){
+//			config.setUpdateRate((UpdateRate)pconfig.update.getSelectedItem());
+//		}
+		int result = Dialog.showDialog(pconfig, new String[]{"保存", "取消"});
+		if(result == 0){
 			config.setUpdateRate((UpdateRate)pconfig.update.getSelectedItem());
 		}
 	}

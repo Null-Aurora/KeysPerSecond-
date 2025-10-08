@@ -57,9 +57,9 @@ public class AboutDialog extends JPanel{
 		add(header, gc);
 		
 		add(new JLabel(
-			"<html>KeysPerSecond is an open source input statistics displayer"
-			+ "<br>released for free under the GPLv3. Any bugs and feature"
-			+ "<br>requests can be reported on GitHub.</html>"
+				"<html>KeysPerSecond是一个开源的输入统计显示器，"
+						+ "<br>根据GPLv3许可证免费发布。任何错误和功能"
+						+ "<br>请求都可以在GitHub上报告。</html>"
 		), gc);
 		
 		add(Box.createVerticalStrut(10), gc);
@@ -72,44 +72,51 @@ public class AboutDialog extends JPanel{
 		
 		line = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		line.add(new JLabel("  - "));
-		JLabel label = new JLabel("<html><font color=blue><u>Main Page</u></font></html>");
+		JLabel label = new JLabel("<html><font color=blue><u>Main Page主页</u></font></html>");
 		label.addMouseListener(new ClickableLink("https://github.com/RoanH/KeysPerSecond"));
 		line.add(label);
 		add(line, gc);
 		
 		line = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		line.add(new JLabel("  - "));
-		label = new JLabel("<html><font color=blue><u>Issues</u></font></html>");
+		label = new JLabel("<html><font color=blue><u>Issues问题反馈</u></font></html>");
 		label.addMouseListener(new ClickableLink("https://github.com/RoanH/KeysPerSecond/issues"));
 		line.add(label);
-		line.add(new JLabel("(bugs & feature requests)"));
+		line.add(new JLabel("(问题反馈和功能请求)"));
 		add(line, gc);
 		
 		line = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		line.add(new JLabel("  - "));
-		label = new JLabel("<html><font color=blue><u>Releases</u></font></html>");
+		label = new JLabel("<html><font color=blue><u>Releases发布</u></font></html>");
 		label.addMouseListener(new ClickableLink("https://github.com/RoanH/KeysPerSecond/releases"));
 		line.add(label);
-		line.add(new JLabel("(release notes & downloads)"));
+		line.add(new JLabel("(发布说明和下载)"));
 		add(line, gc);
 		
 		//version
 		line = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		line.add(new JLabel("<html><b>Latest version</b>: "));
-		JLabel versionLabel = new JLabel("checking...");
+		line.add(new JLabel("<html><b>最新版本</b>: "));
+		JLabel versionLabel = new JLabel("检查中...");
 		line.add(versionLabel);
 		add(line, gc);
 		
 		Util.checkVersion("RoanH", "KeysPerSecond", result->result.ifPresent(version->{
-			versionLabel.setText(Main.VERSION.equals(version) ? version : (version + "  (update available)"));
+			versionLabel.setText(Main.VERSION.equals(version) ? version : (version + "  (有更新可用)"));
 		}));
 		
 		//contact
 		line = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		line.add(new JLabel("<html><b>Contact</b>:&nbsp;&nbsp;Roan Hofland</html>"));
+		line.add(new JLabel("<html><b>联系</b>:&nbsp;&nbsp;Roan Hofland</html>"));
 		JLabel email = new JLabel("<html>&lt;<font color=blue><u>roan@roanh.dev</u></font>&gt;</html>");
 		email.addMouseListener(new ClickableLink("mailto:roan@roanh.dev"));
 		line.add(email);
+		add(line, gc);
+
+		line = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		line.add(new JLabel("<html><b>汉化</b>:&nbsp;&nbsp;Bilibili:</html>"));
+		JLabel bilibili = new JLabel("<html><font color=blue><u>null极光</u></font></html>");
+		bilibili.addMouseListener(new ClickableLink("https://space.bilibili.com/317115491"));
+		line.add(bilibili);
 		add(line, gc);
 	}
 	
@@ -117,6 +124,6 @@ public class AboutDialog extends JPanel{
 	 * Shows an about dialog with useful information.
 	 */
 	public static void showAbout(){
-		Dialog.showMessageDialog(new AboutDialog());
+		Dialog.showDialog(new AboutDialog(),new String[]{"确定"});
 	}
 }

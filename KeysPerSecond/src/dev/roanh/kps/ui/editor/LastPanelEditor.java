@@ -45,7 +45,7 @@ public class LastPanelEditor extends DataPanelEditor{
 	public LastPanelEditor(LastPanelSettings config, boolean live){
 		super(config, live);
 		
-		labels.add(new JLabel("Time units: "));
+		labels.add(new JLabel("时间单位: "));
 		JSpinner units = new JSpinner(new SpinnerNumberModel(config.getUnitCount(), 1, 4, 1));
 		fields.add(units);
 		units.addChangeListener(e->{
@@ -55,7 +55,7 @@ public class LastPanelEditor extends DataPanelEditor{
 			}
 		});
 		
-		labels.add(new JLabel("Show milliseconds: "));
+		labels.add(new JLabel("显示毫秒: "));
 		JCheckBox millis = new JCheckBox("", config.showMillis());
 		fields.add(millis);
 		millis.addActionListener(e->{

@@ -62,7 +62,7 @@ public class KeysDialog extends JPanel implements KeyPressListener{
 	 * The text field showing the most recently pressed key.
 	 * @see #lastKey
 	 */
-	private JTextField pressed = new JTextField("<press a key>", 25);
+	private JTextField pressed = new JTextField("<请按下按键>", 25);
 	/**
 	 * Table model showing all added keys and buttons.
 	 */
@@ -89,9 +89,9 @@ public class KeysDialog extends JPanel implements KeyPressListener{
 		
 		//left panel showing added keys
 		JPanel left = new JPanel(new BorderLayout());
-		left.setBorder(BorderFactory.createTitledBorder("Currently added keys"));
+		left.setBorder(BorderFactory.createTitledBorder("当前已添加的按键"));
 
-		keys = new TablePanel("Key", false, live);
+		keys = new TablePanel("按键", false, live);
 		keys.addPanels(keySettings);
 		JScrollPane pane = new JScrollPane(keys);
 		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -103,18 +103,18 @@ public class KeysDialog extends JPanel implements KeyPressListener{
 		
 		//adding keys
 		JPanel addKey = new JPanel(new BorderLayout());
-		addKey.setBorder(BorderFactory.createTitledBorder("Keys"));
+		addKey.setBorder(BorderFactory.createTitledBorder("按键"));
 		pressed.setHorizontalAlignment(JTextField.CENTER);
 		pressed.setEditable(false);
 		addKey.add(pressed, BorderLayout.CENTER);
-		JButton add = new JButton("Add key");
+		JButton add = new JButton("添加按键");
 		add.addActionListener(e->commitKey());
 		addKey.add(add, BorderLayout.PAGE_END);
 		right.add(addKey, BorderLayout.PAGE_START);
 		
 		//adding buttons
 		JPanel addButton = new JPanel(new GridBagLayout());
-		addButton.setBorder(BorderFactory.createTitledBorder("Mouse Buttons"));
+		addButton.setBorder(BorderFactory.createTitledBorder("鼠标按钮"));
 		GridBagConstraints cons = new GridBagConstraints();
 		cons.weightx = 1;
 		cons.weighty = 1;
@@ -123,11 +123,11 @@ public class KeysDialog extends JPanel implements KeyPressListener{
 		cons.gridwidth = 2;
 		cons.gridx = 0;
 		cons.gridy = 0;
-		addButton.add(newButton(1, "M1 (left click)"), cons);
+		addButton.add(newButton(1, "M1 (左键)"), cons);
 		cons.gridy = 1;
-		addButton.add(newButton(2, "M2 (right click)"), cons);
+		addButton.add(newButton(2, "M2 (右键)"), cons);
 		cons.gridy = 2;
-		addButton.add(newButton(3, "M3 (mouse wheel)"), cons);
+		addButton.add(newButton(3, "M3 (鼠标滚轮)"), cons);
 		cons.gridy = 3;
 		cons.gridwidth = 1;
 		addButton.add(newButton(4, "M4"), cons);
@@ -150,7 +150,7 @@ public class KeysDialog extends JPanel implements KeyPressListener{
 		button.addActionListener(e->{
 			KeyPanelSettings info = new KeyPanelSettings(placePanel(), Main.getExtendedButtonCode(code));
 			if(keySettings.contains(info)){
-				Dialog.showMessageDialog("The M" + code + " button was already added before.\nIt was not added again.");
+				Dialog.showDialog("The M" + code + " 按钮之前已经添加过。\n不可重复添加。",new String[]{"确定"});
 			}else{
 				keySettings.add(info);
 				keys.addPanelRow(keySettings, info);
@@ -171,13 +171,13 @@ public class KeysDialog extends JPanel implements KeyPressListener{
 	 */
 	private void commitKey(){
 		if(lastKey == -1){
-			Dialog.showMessageDialog("Please press a key first.");
+			Dialog.showDialog("请先按下一个键。",new String[]{"确定"});
 			return;
 		}
 		
 		KeyPanelSettings info = new KeyPanelSettings(placePanel(), lastKey);
 		if(keySettings.contains(info)){
-			Dialog.showMessageDialog("That key was already added before.\nIt was not added again.");
+			Dialog.showDialog("该按键之前已经添加过。\n不可重复添加。",new String[]{"确定"});
 		}else{
 			keySettings.add(info);
 			keys.addPanelRow(keySettings, info);
@@ -203,7 +203,7 @@ public class KeysDialog extends JPanel implements KeyPressListener{
 	public static final void configureKeys(Configuration config, boolean live){
 		KeysDialog dialog = new KeysDialog(config, live);
 		Main.eventManager.registerKeyPressListener(dialog);
-		Dialog.showMessageDialog(dialog, true, ModalityType.APPLICATION_MODAL);
+		Dialog.showDialog(dialog, true, ModalityType.APPLICATION_MODAL,new String[]{"确定"});
 		Main.eventManager.deregisterKeyPressListener(dialog);
 	}
 	

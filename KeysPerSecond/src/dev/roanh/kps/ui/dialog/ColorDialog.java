@@ -62,17 +62,17 @@ public class ColorDialog extends JPanel{
 			}
 		});
 		
-		add(new JLabel("Enable custom colours: "));
+		add(new JLabel("启用自定义颜色: "));
 		add(enable);
 		add(new JLabel());
 		
 		//foreground
-		JLabel lfg = new JLabel("Foreground colour: ");
+		JLabel lfg = new JLabel("前景颜色: ");
 		ColorPicker cfg = new ColorPicker(config::getCustomForeground, config::setForeground, live);
 
 		JPanel spanelfg = new JPanel(new BorderLayout());
 		JSpinner sfg = new JSpinner(new SpinnerNumberModel(config.getCustomForeground().getAlpha() * 100.0D, 0.0D, 100.0D, 5.0D));
-		spanelfg.add(new JLabel("Opacity (%): "), BorderLayout.LINE_START);
+		spanelfg.add(new JLabel("不透明度 (%): "), BorderLayout.LINE_START);
 		spanelfg.add(sfg, BorderLayout.CENTER);
 		sfg.addChangeListener(e->{
 			config.setForeground(new ThemeColor(config.getCustomForeground().getRGB(), (float)((double)sfg.getValue() / 100.0D)));
@@ -86,12 +86,12 @@ public class ColorDialog extends JPanel{
 		add(spanelfg);
 
 		//background
-		JLabel lbg = new JLabel("Background colour: ");
+		JLabel lbg = new JLabel("背景颜色: ");
 		ColorPicker cbg = new ColorPicker(config::getCustomBackground, config::setBackground, live);
 
 		JPanel spanelbg = new JPanel(new BorderLayout());
 		JSpinner sbg = new JSpinner(new SpinnerNumberModel(config.getCustomBackground().getAlpha() * 100.0D, 0.0D, 100.0D, 5.0D));
-		spanelbg.add(new JLabel("Opacity (%): "), BorderLayout.LINE_START);
+		spanelbg.add(new JLabel("不透明度 (%): "), BorderLayout.LINE_START);
 		spanelbg.add(sbg, BorderLayout.CENTER);
 		sbg.addChangeListener(e->{
 			config.setBackground(new ThemeColor(config.getCustomBackground().getRGB(), (float)((double)sbg.getValue() / 100.0D)));
@@ -115,7 +115,8 @@ public class ColorDialog extends JPanel{
 		boolean enabled = config.hasCustomColors();
 		ThemeColor foreground = config.getCustomForeground();
 		ThemeColor background = config.getCustomBackground();
-		if(!Dialog.showSaveDialog(new ColorDialog(config, live))){
+		int result = Dialog.showDialog(new ColorDialog(config, live), new String[]{"保存", "取消"});
+		if(result != 0){
 			config.setCustomColorsEnabled(enabled);
 			config.setForeground(foreground);
 			config.setBackground(background);

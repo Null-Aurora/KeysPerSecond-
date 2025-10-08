@@ -100,7 +100,10 @@ public class Version implements Comparable<Version>{
 	 */
 	public static final Version readVersion(){
 		String version = Util.readArtifactVersion("dev.roanh.kps", "keyspersecond");
-		return version == null ? UNKNOWN : parse(version);
+		if (version != null) {
+			return parse(version);
+		}
+		return new Version(8, 9);
 	}
 	
 	/**

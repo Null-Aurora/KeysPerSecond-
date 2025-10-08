@@ -58,22 +58,22 @@ public class CommandKeysDialog extends JPanel implements KeyPressListener{
 	private CommandKeysDialog(CommandSettings config){
 		super(new GridLayout(6, 2, 10, 2));
 
-		add(new JLabel("Reset stats:"));
+		add(new JLabel("重置统计:"));
 		add(newButton(config.getCommandResetStats()));
 
-		add(new JLabel("Exit the program:"));
+		add(new JLabel("退出程序:"));
 		add(newButton(config.getCommandExit()));
 
-		add(new JLabel("Reset totals:"));
+		add(new JLabel("重置总计:"));
 		add(newButton(config.getCommandResetTotals()));
 
-		add(new JLabel("Show/hide GUI:"));
+		add(new JLabel("显示/隐藏界面:"));
 		add(newButton(config.getCommandHide()));
 
-		add(new JLabel("Pause/Resume:"));
+		add(new JLabel("暂停/继续:"));
 		add(newButton(config.getCommandPause()));
 
-		add(new JLabel("Reload config:"));
+		add(new JLabel("重新加载配置:"));
 		add(newButton(config.getCommandReload()));
 	}
 	
@@ -99,7 +99,7 @@ public class CommandKeysDialog extends JPanel implements KeyPressListener{
 	public static final void configureCommandKeys(CommandSettings config){
 		CommandKeysDialog dialog = new CommandKeysDialog(config);
 		Main.eventManager.registerKeyPressListener(dialog);
-		Dialog.showMessageDialog(dialog);
+		Dialog.showDialog(dialog, new String[]{"确定"});
 		Main.eventManager.deregisterKeyPressListener(dialog);
 	}
 	
@@ -109,7 +109,7 @@ public class CommandKeysDialog extends JPanel implements KeyPressListener{
 	 */
 	private void askForNewKey(CommandKeySetting key){
 		JPanel form = new JPanel(new GridLayout(2, 1));
-		JLabel txt = new JLabel("Press a key and click 'Save' or press 'Unbind'");
+		JLabel txt = new JLabel("按下一个键并点击'保存'或按下'解绑'");
 		lastKey = -1;
 		preview.setText(key.toDisplayString());
 		preview.setEditable(false);
@@ -117,7 +117,7 @@ public class CommandKeysDialog extends JPanel implements KeyPressListener{
 		form.add(txt);
 		form.add(preview);
 		
-		switch(Dialog.showDialog(form, new String[]{"Save", "Unbind", "Cancel"})){
+		switch(Dialog.showDialog(form, new String[]{"保存", "解绑", "取消"})){
 		case 0:
 			final int code = lastKey;
 			if(code != -1){

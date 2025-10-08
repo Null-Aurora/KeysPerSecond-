@@ -95,18 +95,18 @@ public class StatsSavingDialog extends JPanel{
 		super(new BorderLayout());
 		
 		JPanel endPanel = new JPanel(new BorderLayout());
-		endPanel.setBorder(BorderFactory.createTitledBorder("Save on exit"));
-		saveOnExit = new JCheckBox("Save statistics to a file on exit", config.isSaveOnExitEnabled());
-		loadOnStart = new JCheckBox("Load saved statistics from a file on launch", config.isLoadOnLaunchEnabled());
+		endPanel.setBorder(BorderFactory.createTitledBorder("退出时保存"));
+		saveOnExit = new JCheckBox("退出时将统计信息保存到文件", config.isSaveOnExitEnabled());
+		loadOnStart = new JCheckBox("启动时从文件加载已保存的统计信息", config.isLoadOnLaunchEnabled());
 
 		JPanel selectFile = new JPanel(new BorderLayout(2, 0));
-		selectFile.add(new JLabel("Save location: "), BorderLayout.LINE_START);
+		selectFile.add(new JLabel("保存位置: "), BorderLayout.LINE_START);
 		selectedFile = new JFormattedTextField(new FilePathFormatterFactory(), config.getSaveFile());
 		selectFile.add(selectedFile, BorderLayout.CENTER);
-		JButton select = new JButton("Select");
+		JButton select = new JButton("选择");
 		selectFile.add(select, BorderLayout.LINE_END);
 		select.addActionListener((e)->{
-			Path dir = Dialog.showFileSaveDialog(Statistics.KPS_STATS_EXT, "stats");
+			Path dir = Dialog.showFileSaveDialog(Statistics.KPS_STATS_EXT, "统计");
 			if(dir != null){
 				selectedFile.setText(dir.toAbsolutePath().toString());
 			}
@@ -127,8 +127,8 @@ public class StatsSavingDialog extends JPanel{
 		endPanel.add(selectFile, BorderLayout.PAGE_END);
 		
 		JPanel periodicPanel = new JPanel(new BorderLayout());
-		periodicPanel.setBorder(BorderFactory.createTitledBorder("Periodic saving"));
-		enabled = new JCheckBox("Periodically save the statistics so far to a file", config.isAutoSaveEnabled());
+		periodicPanel.setBorder(BorderFactory.createTitledBorder("定期保存"));
+		enabled = new JCheckBox("定期将统计信息保存到文件", config.isAutoSaveEnabled());
 		
 		BorderLayout layout = new BorderLayout();
 		layout.setHgap(2);
@@ -137,11 +137,11 @@ public class StatsSavingDialog extends JPanel{
 		JPanel fields = new JPanel(new GridLayout(3, 1, 0, 2));
 		JPanel extras = new JPanel(new GridLayout(3, 1, 0, 2));
 		
-		JButton seldest = new JButton("Select");
+		JButton seldest = new JButton("选择");
 		ldest = new JFormattedTextField(new FilePathFormatterFactory(), config.getAutoSaveDestination());
 		fields.add(ldest);
 		extras.add(seldest);
-		labels.add(new JLabel("Save location: "));
+		labels.add(new JLabel("保存位置: "));
 		seldest.addActionListener((e)->{
 			Path dir = Dialog.showFolderOpenDialog();
 			if(dir != null){
@@ -152,7 +152,7 @@ public class StatsSavingDialog extends JPanel{
 		Unit bestUnit = Unit.fromMillis(config.getAutoSaveInterval());
 		timeUnit.setSelectedItem(bestUnit);
 		time = new JSpinner(new SpinnerNumberModel(Long.valueOf(config.getAutoSaveInterval() / bestUnit.unit.toMillis(1)), Long.valueOf(1L), Long.valueOf(Long.MAX_VALUE), Long.valueOf(1L)));
-		labels.add(new JLabel("Save interval: "));
+		labels.add(new JLabel("保存间隔: "));
 		fields.add(time);
 		JPanel unitPanel = new JPanel(new BorderLayout());
 		unitPanel.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 1));
@@ -162,8 +162,8 @@ public class StatsSavingDialog extends JPanel{
 		format = new JFormattedTextField(new FilePathFormatterFactory(), config.getAutoSaveFormat());
 		format.setColumns(30);
 		format.setFocusLostBehavior(JFormattedTextField.COMMIT_OR_REVERT);
-		JButton help = new JButton("Help");
-		labels.add(new JLabel("Save format: "));
+		JButton help = new JButton("帮助");
+		labels.add(new JLabel("保存格式: "));
 		fields.add(format);
 		extras.add(help);
 		help.addActionListener(this::showFormatHelp);
@@ -198,26 +198,26 @@ public class StatsSavingDialog extends JPanel{
 	 */
 	private void showFormatHelp(ActionEvent event){
 		JLabel help = new JLabel(
-			"<html>Format syntax:<br>"
-			+ "- Escape strings with single quotes ( ' )<br>"
-			+ "- A double single quote is a single quote ( '' becomes ' )<br>"
-			+ "- Note that / \\ ? % * : | \" &lt and > are not allowed in file names<br>"
-			+ "- <b>yyyy</b> represents the year<br>"
-			+ "- <b>MM</b> represents the month of the year<br>"
-			+ "- <b>dd</b> represents the day of the month<br>"
-			+ "- <b>hh</b> represents the hour of the day<br>"
-			+ "- <b>mm</b> represents the minute in the hour<br>"
-			+ "- <b>ss</b> represents the second in the minute</html>"
+				"<html>格式语法:<br>"
+						+ "- 使用单引号转义字符串 ( ' )<br>"
+						+ "- 双单引号表示一个单引号 ( '' 变成 ' )<br>"
+						+ "- 注意文件名中不允许使用 / \\ ? % * : | \" &lt 和 > 字符<br>"
+						+ "- <b>yyyy</b> 表示年份<br>"
+						+ "- <b>MM</b> 表示月份<br>"
+						+ "- <b>dd</b> 表示日期<br>"
+						+ "- <b>hh</b> 表示小时<br>"
+						+ "- <b>mm</b> 表示分钟<br>"
+						+ "- <b>ss</b> 表示秒</html>"
 		);
 		
-		JLabel more = new JLabel("<html><font color=blue><u>More options can be found in the Javadoc for the DateTimeFormatter.</u></font></html>");
+		JLabel more = new JLabel("<html><font color=blue><u>更多选项可以在 DateTimeFormatter 的 Javadoc 中找到。</u></font></html>");
 		more.addMouseListener(new ClickableLink("https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html"));
 		
 		JPanel text = new JPanel(new BorderLayout());
 		text.add(help, BorderLayout.CENTER);
 		text.add(more, BorderLayout.PAGE_END);
 		
-		Dialog.showMessageDialog(text);
+		Dialog.showDialog(text,new String[]{"确定"});
 	}
 
 	/**
@@ -227,7 +227,8 @@ public class StatsSavingDialog extends JPanel{
 	 */
 	public static final void configureStatsSaving(StatsSavingSettings config, boolean live){
 		StatsSavingDialog dialog = new StatsSavingDialog(config);
-		if(Dialog.showSaveDialog(dialog)){
+		int result = Dialog.showDialog(dialog, new String[]{"保存", "取消"});
+		if(result == 0){
 			config.setAutoSaveEnabled(dialog.enabled.isSelected());
 			config.setAutoSaveDestination(dialog.ldest.getText());
 			config.setAutoSaveFormat(dialog.format.getText());
@@ -261,22 +262,22 @@ public class StatsSavingDialog extends JPanel{
 		 * Represents the hour unit.
 		 * Larger units are not offered.
 		 */
-		HOUR("Hours", TimeUnit.HOURS, null),
+		HOUR("小时", TimeUnit.HOURS, null),
 		/**
 		 * Represents the minute unit, 60 of
 		 * which make up a single {@link #HOUR}.
 		 */
-		MINUTE("Minutes", TimeUnit.MINUTES, HOUR),
+		MINUTE("分钟", TimeUnit.MINUTES, HOUR),
 		/**
 		 * Represents the second unit, 60 of
 		 * which make up a single {@link #MINUTE}.
 		 */
-		SECOND("Seconds", TimeUnit.SECONDS, MINUTE),
+		SECOND("秒", TimeUnit.SECONDS, MINUTE),
 		/**
 		 * Represents the millisecond unit, 1000 of
 		 * which make up a single {@link #SECOND}.
 		 */
-		MILLISECOND("Milliseconds", TimeUnit.MILLISECONDS, SECOND);
+		MILLISECOND("毫秒", TimeUnit.MILLISECONDS, SECOND);
 		
 		/**
 		 * The {@link TimeUnit} for this unit

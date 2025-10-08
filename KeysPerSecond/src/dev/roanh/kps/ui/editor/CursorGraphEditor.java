@@ -45,9 +45,9 @@ public class CursorGraphEditor extends Editor{
 	 * @param live If updates should be reflected in real time.
 	 */
 	public CursorGraphEditor(CursorGraphSettings config, boolean live){
-		super("Graph Settings");
+		super("图形设置");
 		
-		labels.add(new JLabel("Display: "));
+		labels.add(new JLabel("显示:"));
 		GraphicsDevice[] screens = CursorGraphSettings.getScreens();
 		String[] screenNames = new String[screens.length];
 		int selectedIdx = 0;
@@ -69,7 +69,7 @@ public class CursorGraphEditor extends Editor{
 			}
 		});
 		
-		labels.add(new JLabel("Backlog (milliseconds): "));
+		labels.add(new JLabel("回溯时间 (毫秒): "));
 		JSpinner backlog = new JSpinner(new SpinnerNumberModel(config.getBacklog(), 0, Integer.MAX_VALUE, 100));
 		backlog.addChangeListener(e->config.setBacklog((int)backlog.getValue()));
 		fields.add(backlog);
